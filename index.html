@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calculator</title>
+        <link rel="stylesheet" href="index.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+       
+        <script>
+        $(document).ready(function(){
+    var testNumLength = function(number) {
+        if (number.length > 9) {
+            totaldiv.text(number.substr(0,9));
+        } 
+    };
+    var number = "";
+    var newnumber = "";
+    var operator = "";
+    var totaldiv = $("#total");
+    totaldiv.text("0");
+    $("#numbers a").not("#clear,#clearall").click(function(){
+        number += $(this).text();
+        totaldiv.text(number);
+        testNumLength(number);
+    });
+
+    $("#operators a").not("#equals").click(function(){
+        operator = $(this).text();
+        newnumber = number;
+        number = "";
+        totaldiv.text("0");
+    });
+
+    $("#side a").not("#equals, #decimal").click(function(){
+        side = $(this).text();
+        newnumber = number;
+        number = "";
+        totaldiv.text("0");
+    });
+
+    $ ("#decimal").click(function(){
+        newnumber = number;
+        console.log(newnumber,number);
+        number = "";
+        console.log(newnumber,number);
+        number = newnumber +number*0.1;
+        console.log(newnumber,number);
+        totaldiv.text(number);
+    });
+    
+    $("#clear,#clearall").click(function(){
+        number = "";
+        totaldiv.text("0");
+        if ($(this).attr("id") === "clearall") {
+            newnumber = "";
+        }
+    });
+
+    $("#equals").click(function(){
+        if (operator === "+")
+        {
+            number = (parseInt(number, 10) + parseInt(newnumber,10)).toString(10);
+        } 
+        else if (operator === "-")
+        {
+            number = (parseInt(newnumber, 10) - parseInt(number,10)).toString(10);
+        } 
+        else if (operator === "÷")
+        {
+            number = (parseInt(newnumber, 10) / parseInt(number,10)).toString(10);
+        } 
+        else if (operator === "×")
+        {
+            number = (parseInt(newnumber, 10) * parseInt(number,10)).toString(10);
+        }
+        else if (side === "^")
+        {    
+            number = (Math.pow(newnumber, number)).toString(10);
+        } 
+        else if (side === "√")
+        {    
+            number = (Math.sqrt(newnumber, number)).toString(10);
+        }
+
+        totaldiv.text(number);
+        testNumLength(number);
+        number = "";
+        newnumber = "";
+    });
+});
+        </script>
+    </head>
+    <body>
+        <div id="calculator">
+            <div id="total">
+            </div>
+            <div id="operators">
+                <a>+</a>
+                <a>-</a>
+                <a>&divide;</a>
+                <a>&times;</a>
+            </div>
+            <div id="side">
+                <a id="sq">^</a>
+                <a id="sqrt">√</a>
+                <a id="decimal">.</a>
+                <a id="equals">=</a>
+            </div>
+            <div id="numbers">
+                <a>1</a>
+                <a>2</a>
+                <a>3</a>
+                <a>4</a>
+                <a>5</a>
+                <a>6</a>
+                <a>7</a>
+                <a>8</a>
+                <a>9</a>
+                <a id="clear">C</a>
+                <a>0</a>
+                <a id="clearall">AC</a>
+            </div>
+        </div>
+    </body>
+</html>
